@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <title>My tunnel</title>
+        <style>
+            body{
+                text-align:center;
+            }
+            input{
+                margin:auto;
+                width:30em;
+            }
+            iframe{
+                width:100%;
+            }
+        </style>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        
+        <span>
+            <input id="myInpAddress" name="address" type="text" value="https://tr.wikipedia.org/wiki/"/>
+            <button id="myBtnSubmit">Git</button>
+            <iframe id="myFrame"  width="800" height="800" srcdoc="">
+                <p>Browser does not support</p>
+            </iframe>
+        </span>
+        <script type="text/javascript">
+
+               $("#myBtnSubmit").click(function(){
+                 $.ajax({
+                  type: "POST",
+                  url: "/search",
+                  data: {"addr" :$("#myInpAddress").val()},
+                  success: function(data){
+                      console.log($("#myInpAddress").val());
+                  }
+                  }).then(function (response) {
+                       $("#myFrame").attr("srcdoc",response);
+                      
+                         },function (err) {
+                            console.error(err);
+                         });
+               });
+               $.ajaxSetup({
+                    success: function(result) {
+                        console.log("result: "+result);
+                    },
+                    beforeSend(xhr){
+                        console.log(xhr);
+                    }
+                    
+                                   });
+                
+
+        </script>
+        
+    </body>
+    
+</html>
