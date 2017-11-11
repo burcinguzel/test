@@ -51,7 +51,4 @@ request(req.body.addr,function(error,response,body){
 
 });
 
-server.listen(8080,function(){
-  console.log("Get Request");
-  
-});
+server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0");
